@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+ <title>Calcul des Normales Climatologiques Standard</title>
+<meta name="generator" content="Jekyll v3.9.0">
+<meta property="og:title" content="Tackling Climate Data Management">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Workshop on Climate Data Management">
+<meta property="og:description" content="Workshop on Climate Data Management">
+<meta property="og:site_name" content="Climate Data Management">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Tackling Climate Data Management">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#157878">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="https://dgm-meteo.github.io/wmo-clino/css/style.css">
+    <link rel="stylesheet" href="https://dgm-meteo.github.io/wmo-clino/css/materialdesignicons.min.css">
+  </head>
+  <body>
+<div class="row">
+    <center><img src="https://dgm-meteo.github.io/wmo-clino/images/Afrique-02-02.png" alt="banner" style="width:80%;max-height:240px;max-width:1000px" ></center>
+    <center><a class="button" href="https://dgm-meteo.github.io/wmo-clino/index.html" >French</a>
+    <a class="button" href="https://dgm-meteo.github.io/wmo-clino/index_en.html" style="background-color:#04587B;color:white;">English</a></center>	
+    </div>
+<style>
+  .ro3D { 
+    transform: rotateX(70deg);
+    /*
+    transform: rotateY(45deg);
+    transform: rotateZ(40deg);
+    */
+  }
+</style>
+
+<main id="content" class="main-content" role="main">
+
+<h1 style="middle"><center> Atelier sur le Calcul des Normales Climatologiques Standard 
+<p style="font-size: 1.2rem"> DGM, 9 et 13 Décembre 2021
+</center></h1>
+
+<div class="buttons">
+  <a class="button" href="https://dgm-meteo.github.io/wmo-clino/index.html#about-the-workshop">Contexte</a>
+  <a class="button" href="https://dgm-meteo.github.io/wmo-clino/index.html#Participants">Participants</a>
+  <a class="button" href="https://dgm-meteo.github.io/wmo-clino/index.html#schedule">Agenda</a>
+  <a class="button" href="https://dgm-meteo.github.io/wmo-clino/index.html#Recordings">Video</a>
+  <a class="button" href="https://dgm-meteo.github.io/wmo-clino/index.html#invited-speakers">Intervenants</a>
+  <a class="button" href="https://dgm-meteo.github.io/wmo-clino/index.html#organizers">Organisateur</a>
+  <a class="button" href="https://dgm-meteo.github.io/wmo-clino/index.html#resources">Resources</a>
+  <a class="button" href="https://dgm-meteo.github.io/wmo-clino/index.html#faq">FAQ</a>
+</div>
+<hr>
+<!-- ************************************ --> 
+<h2 id="about-the-workshop">Contexte</h2>
+<!-- ************************************ --> 
+<ul ><p style="text-align: justify;">
+
+De nouvelles normales climatologiques standard devraient être calculées sur la période de trente ans 1991-2020 répondant à 
+<a href="https://community.wmo.int/wmo-climatological-normals" target="_blank"> <strong>l’appel de l’Organisation Météorologique Mondiale (OMM) </strong></a>. 
+le Dix-septième Congrès météorologique mondial (2015) a adopté la <a href="https://library.wmo.int/doc_num.php?explnum_id=3138#page=277" target="_blank"> <strong>Résolution 16</strong></a>
+(Cg-17) – Rapport de la seizième session 
+de la Commission de climatologie, pour améliorer la définition de normale climatologique standard. Désormais, le terme «normale climatologique standard» 
+se réfère à la période de 30 ans la plus récente dont la dernière année se termine par zéro (1981-2010, 1991-2020, etc.) et non plus à des périodes de 
+30 ans qui ne se recoupent pas (1931-1960, 1961-1990, etc.).
+<br><br>	
+Les Membres sont vivement encouragés à se conformer à la nouvelle norme le plus rapidement possible, mais l’OMM continue de se charger de recueillir 
+les normales climatologiques standard afin d’établir un fonds mondial de données comparables et accessibles. Pour ce faire, le 
+<a href="https://www.ncei.noaa.gov/pub/data/normals/WMO/" target="_blank"> <strong>Centre national 
+d’information sur l’environnement</strong></a> (NCEI) de l’Administration américaine pour les océans et l’atmosphère (NOAA) a généreusement accepté de continuer 
+de recueillir et de publier les normales climatologiques standard mondiales au nom de l’OMM.
+<br><br>	
+OMM invite les Membres à communiquer les normales climatologiques standard pour la période 1991-2020 pour le plus de stations possible, y compris 
+les stations enregistrées dans OSCAR/Surface, l’outil d’analyse de la capacité des systèmes d’observation s’agissant des observations en surface, et 
+notamment les stations qui: i) constituent les Réseaux climatologiques de base régionaux (RBCN), ii) transmettent des messages CLIMAT mensuels, et 
+iii) contribuent au recueil des World Weather Records. Les données doivent être calculées, numérisées et communiquées soit via un fichier Excel, 
+soit au format texte selon les <a href="https://library.wmo.int/doc_num.php?explnum_id=4166"> <strong>Directives de l’OMM pour le calcul des normales climatiques </strong></a> (OMM-N° 1203).
+<br><br>
+Pour faciliter cette tâche, une application web a été développée sous <a href="https://cran.r-project.org/" target="_blank"> <strong>R </strong></a> dans la plateforme
+<a href="https://shiny.rstudio.com" target="_blank"> <strong>Shiny </strong></a>  pour calculer les valeurs des normales climatologiques 
+et les écrire dans des fichiers CSV au format de livraison spécifié par l’OMM. Cette application nécessite deux fichiers d’entrée (un fichier de 
+métadonnées et un fichier de données quotidiennes). Un modèle pour ces fichiers peut être téléchargé via  
+<a href="https://dgm-meteo.shinyapps.io/wmo-clino-fr/" target="_blank"> <strong>l’interface du dite application web </strong></a>. Le manuel d'utilisation de l'interface peut 
+être téléchargé <a href="https://dgm-meteo.github.io/wmo-clino/Docs/CLINO_WebApp_FR.pdf"> <strong>ici</strong></a>.
+<br><br>
+Pour répondre aux besoins de renforcement des capacités, dans les Services météorologiques et hydrologiques nationaux (SMHN) des pays d'Afrique centrale 
+et de l'Ouest, et offrir des sessions de formation à leur personnel pour améliorer la génération et le partage de produits de données climatiques,
+la <a href="https://www.marocmeteo.ma" target="_blank"> <strong>Direction Générale de la Météorologie </strong></a> du Maroc, en collaboration 
+avec <a href="https://public.wmo.int/en" target="_blank"><strong> l'Organisation Météorologique Mondiale</strong></a>, 
+sous l'egide du projet “West Africa Region: Seamless Operational Forecast Systems and Technical Assistance for Capacity Building (CREWS-West Africa)", 
+financé par l'initiative des Systèmes d'alerte précoce et de risque climatique (CREWS), 
+organize une series de deux ateliers sur : <center><strong><p style="color:#04587B;font-size: 1.7rem">
+	Calcul des Normales Climatologiques Standard.</p></strong><br> 
+les <strong> 9 </strong>et<strong> 13 Décembre 2021</strong>.</center> <br>
+Ces ateliers se dérouleront en ligne via la <strong>plateforme Zoom</strong> 
+	(Voir <a href="https://dgm-meteo.github.io/wmo-clino/Docs/Zoom-Meetings-Participants-User-guide.pdf" target="_blank">GUIDE</a>) et le lien sera envoyé aux participants inscrits en temps voulu.
+<br><br>
+</ul>
+<strong>L'objectif principal</strong> de ces ateliers est de fournir une formation et une assistance (en ligne) sur le principe et l'outil de calcul des normales
+climatologiques 1991-2020 selon les directives de l'OMM.
+<ol>
+<hr>
+
+<!-- ************************************ --> 
+<h2 id="Participants">Participants et calendrier des ateliers<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" 
+href="https://sebbari.github.io/wmo-clino/index.html#registration" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+<!-- ************************************ --> 
+<p >Les pays cibles des ateliers sont les pays d'Afrique de l'Ouest et de l'Afrique Centrale dont les 24 membres du PRESASS, du PRESAGG et du PRESAC. 
+Le contenu de ces 2 ateliers est le même. La langue de travail utilisée pour le premier atelier sera le <strong>Français</strong> 
+et pour le deuxième atelier ce sera <strong>l'Anglais</strong>.</p>
+Le programme des ateliers et la liste des pays participants pour chaque atelier sont présentés ci-après:</p>
+	
+<table class="table sschedule2" style="font-size: 0.9rem">
+         <tbody>
+<tr><td style="width: 220px;color:#04587B;font-size: 1.2rem"><strong>Date de l'Atelier </td><td  style="color:#04587B;font-size: 1.2rem"><strong>Pays 
+	participants <br></td><td  style="width: 220px;color:#04587B;font-size: 1.2rem"><strong>Langue de l'atelier</strong></td></tr>
+<tr><td style="width: 220px">Jeudi 9 Décembre 2021 &nbsp;&nbsp;&nbsp;</td><td  ><strong>Bénin, Burkina Faso, Burundi, Cameroun, Côte d'Ivoire, Centrafrique, 
+	Congo, Congo-Kinshasa, Gabon, Guinée, Guinée équatoriale, Mali, Mauritanie, Niger, Sénégal, Tchad et Togo </strong>.<br></td><td  >Francais</td></tr>
+<tr><td style="width: 220px">Lundi 13 Décembre 2021 </td><td  ><strong>Cap-Vert, Gambie, Ghana, Guinée-Bissau, Liberia, Nigeria, Sierra Leone and Saõ Tomé et Principe</strong>.<br></td><td  >Anglais</td></tr>
+	</tr></tbody>
+            </table>
+<br>
+<hr>
+<!-- ************************************ 
+- Français :  https://dgm-meteo.shinyapps.io/wmo-clino-fr/
+- Anglais :  https://dgm-meteo.shinyapps.io/wmo-clino-en/ 
+--> 
+<h2 id="schedule">Agenda (Time in GMT)</h2>
+<!-- ************************************ --> 
+<table class="table sschedule" style="font-size: 0.9rem">
+            <tbody>
+<tr bgcolor="#0074a1" id="d1s0"><th colspan="3" class="col-md-20 s-session" style="font-size: 1.3rem"><h5 style="color:white" >Ouverture de 
+	l'atelier</h5></th></tr>
+<tr><td  > 09:05-09:15</td><td  >Rachid SEBBARI <em>DGM</em><br></td><td  >Mot de bienvenue et ouverture de l'atelier;</td></tr>
+<tr bgcolor="#0074a1" id="d1s1"><th colspan="3" class="col-md-20 s-session" style="font-size: 1.3rem"><h5 style="color:white">Calcul des normales 
+	climatologiques standard</h5></th></tr>
+<tr><td  >09:15-10:00</td><td  >Dris BARI<br><em>DGM</em></td><td  >Concept et calcul des normales standard climatologiques pour 1991-2020. 
+	<a href="https://dgm-meteo.github.io/wmo-clino/Docs/DMN-OMM-CLINO-Techical-FR.pdf" target="_blank">  [ Français ] 
+	</td></tr>
+<tr><td  >10:05-10:35</td><td  >Dris BARI<br><em>DGM</em></td><td class="col-md-8 sk-title"> Démonstration et Initiation à l'utilisation 
+	de l'application Web pour le calcul des normales climatologiques standard. 
+	<a href="https://youtu.be/KiUWiV2-HAw" target="_blank">  [ Tutoriel en Français ]
+	</td></tr>
+<tr><td  >10:40-11:00</td><td  ><br><em></em></td><td  >Discussions: Q/R, Besoins des pays.</td></tr>
+<tr bgcolor="#0074a1"><th colspan="3" class="col-md-12 s-session" style="font-size: 1.3rem"><h5 style="color:white">Cloture</h5></th></tr>
+
+            </tr></tbody>
+            </table>
+<!-- ************************************ --> 
+<h2 id="Recordings">Video</h2>
+<!-- ************************************ --> 
+Enregistrements videos : [ Francais ] (seront disponible après l'Atelier)
+
+<!--
+<table class="table recordings" style="font-size: 0.9rem">
+            <tbody>
+<tr><td style="width: 380px;color:#04587B;font-size: 1.2rem"><strong>Date et langue de l'Atelier </td><td  style="color:#04587B;font-size: 1.2rem"><strong>Recording <br></td><td  style="width: 220px;color:#04587B;font-size: 1.2rem"><strong>Recording</strong></td></tr>
+<tr><td style="width: 120px">4 Novembre 2021; Français &nbsp;&nbsp;&nbsp;</td><td  ><strong><a href="https://youtu.be/iEVUFEUePjQ" target="_blank">Session 1 </a></strong><br></td>
+	<td  ><a href="https://youtu.be/cAutZKo96ls" target="_blank">Session 2</a></td></tr>
+<tr><td style="width: 120px">5 Novembre 2021; Français </td><td  ><strong><a href="https://youtu.be/bsHArtl7OCU" target="_blank">Session 1</a></strong><br></td>
+	<td  ><a href="https://youtu.be/CsqyWXmAMwA" target="_blank">Session 2</a></td></tr>
+<tr><td style="width: 120px">9 Novembre 2021; Anglais </td><td  ><strong><a href="https://youtu.be/Rfi2InwgZYY" target="_blank">Session 1</a></strong><br></td>
+	<td  ><a href="https://youtu.be/IZgIsGUmKLU" target="_blank">Session 2</a></td></tr>
+	</tr></tbody>
+            </table>
+-->
+<br>
+<hr>
+
+<h2 id="invited-speakers"> Intervenants</h2>
+<p><strong>Sebbari Rachid</strong> (DGM)<br>
+<strong>Driss Bari</strong> (DGM)<br>
+</p>
+<hr>
+
+<h2 id="organizers">Organisateurs</h2>
+<p style="font-size: 0.9rem">Pour plus d'informations, veuillez contacter le coordinateur de la DGM :</p>
+<p>Mr Rachid SEBBARI     : <a href="mailto:sebbari@gmail.com"> sebbari@gmail.com </a><br>
+</p>
+
+<!-- ************************************ --> 
+<h2 id="resources">Resources</h2>
+<!-- ************************************ --> 
+<p>
+<a href="https://dgm-meteo.github.io/wmo-clino/Docs/CLINO_WebApp_FR.pdf"> <strong>- Manuel d'utilisation de l'Application 
+	Web pour le calcul des normales climatologigues</strong></a><br>
+<a href="https://dgm-meteo.github.io/wmo-clino/Docs/WMO2016_1182_fr_Directives sur les bonnes pratiques en matière de sauvetage 
+	 des données climatologiques.pdf"> <strong>- WMO2016_1182 : Directives sur les bonnes pratiques en matière de sauvetage 
+	 des données climatologiques</strong></a><br>
+<a href="https://dgm-meteo.github.io/wmo-clino/Docs/WMO2017_1203_fr_Directives de l’OMM pour le calcul des normales 
+	 climatiques.pdf"> <strong>- WMO2017_1203 : Directives de l’OMM pour le calcul des normales 
+	 climatiques</strong></a><br>
+<a href="https://dgm-meteo.github.io/wmo-clino/Docs/WMO2019_1238_fr_Manuel sur le Cadre mondial pour la gestion de données 
+	 climatologiques de qualité.pdf"> <strong>- WMO2019_1238 : Manuel sur le Cadre mondial pour la gestion de données 
+	 climatologiques de qualité</strong></a><br>
+<a href="https://dgm-meteo.github.io/wmo-clino/Docs/WMO2020_1245_fr_Directives sur l'homogénéisation.pdf"> <strong>- WMO2020_1245 : Directives sur 
+	l'homogénéisation</strong></a><br>
+<a href="https://dgm-meteo.github.io/wmo-clino/Docs/WMO2018_100_fr_Guide des pratiques climatologiques.pdf"> <strong>- WMO2018_100 : Guide des pratiques 
+	climatologiques</strong></a><br>
+</p>
+	<body>
+<!-- ************************************ --> 	
+<h2 id="faq"><strong>FAQ</strong></h2>
+<!-- ************************************ --> 
+<!--  <h1><strong>FAQ</strong></h1> -->
+  <main>
+<!--  <details open> -->
+ <details>
+    <summary>Question 1?</summary>
+    <div class="faq__content">
+      <p> Réponse 1</p>
+    </div>
+ </details>
+
+ <details>
+    <summary>Question 2?</summary>
+    <div class="faq__content">
+      <p>Réponse 2.</p>
+    </div>
+ </details>
+   </main>
+</body>
+  <tbody>
+  
+
+
+      <footer class="site-footer">
+        <span class="site-footer-credits">Copyright, DGM 2021</a></span>
+
+        <!--a href="https://www.youtube.com/c/ClimateChangeAI" target="_blank" class="site-footer__media-link">
+          <span class="icon">
+            <i class="mdi mdi-youtube" aria-hidden="true"></i>
+          </span>
+        </a-->
+
+      </footer>
+    </main>
+  
+
+</body></html>
